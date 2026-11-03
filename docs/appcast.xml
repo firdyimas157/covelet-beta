@@ -3,13 +3,13 @@
   <channel>
     <title>Covelet</title>
     <item>
-      <title>Covelet 0.1.4</title>
-      <pubDate>Tue, 03 Nov 2026 16:38:11 +0000</pubDate>
-      <sparkle:version>5</sparkle:version>
-      <sparkle:shortVersionString>0.1.4</sparkle:shortVersionString>
+      <title>Covelet 0.1.5</title>
+      <pubDate>Tue, 03 Nov 2026 16:47:39 +0000</pubDate>
+      <sparkle:version>6</sparkle:version>
+      <sparkle:shortVersionString>0.1.5</sparkle:shortVersionString>
       <sparkle:minimumSystemVersion>26.0</sparkle:minimumSystemVersion>
-      <sparkle:releaseNotesLink>https://github.com/firdyimas157/covelet-beta/releases/tag/v0.1.4</sparkle:releaseNotesLink>
-      <enclosure url="https://github.com/firdyimas157/covelet-beta/releases/download/v0.1.4/Covelet-0.1.4.dmg" sparkle:edSignature="gIaUNZBqVvWxmN4AQzBsVETcaq01ENTi946HkzYaASMOtJmoszTvYLqjFzfiQ9Dgmlj70Cdk3tdNN6D0n4G6BQ==" length="6146402" type="application/octet-stream"/>
+      <sparkle:releaseNotesLink>https://github.com/firdyimas157/covelet-beta/releases/tag/v0.1.5</sparkle:releaseNotesLink>
+      <enclosure url="https://github.com/firdyimas157/covelet-beta/releases/download/v0.1.5/Covelet-0.1.5.dmg" sparkle:edSignature="nxkYagrm3IELRxD8r7vdc109AJNHweHDDfwBOOYNpAPy+dRHx+fAxhluN+zHV6O+qYrWLP8EO5hmKAQaeqEdAg==" length="3387583" type="application/octet-stream"/>
     </item>
   </channel>
 </rss>
