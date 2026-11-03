@@ -56,6 +56,7 @@
   .col p { font-size: 19px; line-height: 1.45; }
   .col p.muted { color: var(--ink-2); }
   .col.cta { gap: 14px; }
+  .col .ver { font-size: 13px; color: var(--ink-2); }
   .button { display: flex; justify-content: center; align-items: center; gap: 16px; background: var(--accent); color: #fff; border-radius: 8px; padding: 18px 20px; font-size: 17px; font-weight: 600; transition: background .15s; }
   .button:hover { background: #E63D12; }
   .button svg { font-size: 20px; }
@@ -88,7 +89,9 @@
   /* The body is always laid out at full width and centred, so nothing reflows while the island grows. */
   .body { position: absolute; top: 38px; left: 50%; width: var(--open-w); padding: 14px 24px 26px; display: flex; flex-direction: column; gap: 18px; transform: translateX(-50%); opacity: 0; transition: opacity .2s; }
   .stage.open .body { opacity: 1; transition: opacity .35s .15s; }
-  .tabs { display: flex; justify-content: center; gap: 6px; }
+  .tabs { display: flex; align-items: center; gap: 4px; }
+  .tabs .spacer { flex: 1; min-width: 8px; }
+  .tab.pin svg { transform: rotate(45deg); }
   .tab { display: flex; align-items: center; padding: 7px 12px; border-radius: 999px; color: #8A8580; font-size: 14px; transition: background .35s ease, color .35s ease; }
   .tab.on { background: #FFFFFF1F; color: #fff; }
   .tab span { max-width: 0; margin-left: 0; opacity: 0; overflow: hidden; white-space: nowrap; font-size: 12px; font-weight: 600; color: var(--panel-text); transition: max-width .45s var(--spring), margin-left .45s var(--spring), opacity .3s; }
@@ -125,6 +128,40 @@
   .eq i:nth-child(3) { animation-delay: -.6s; }
   .eq i:nth-child(4) { animation-delay: -.15s; }
   @keyframes eq { from { transform: scaleY(.25); } to { transform: scaleY(1); } }
+  /* An agent notice drops from the closed notch. */
+  .stage.noticed .island { width: min(400px, calc(100vw - 64px)); height: 112px; border-radius: 0 0 24px 24px; }
+  .notice { position: absolute; top: 38px; left: 50%; width: min(400px, calc(100vw - 64px)); height: 74px; padding: 0 20px 6px; display: flex; align-items: center; gap: 12px; transform: translateX(-50%); opacity: 0; transition: opacity .2s; color: var(--panel-text); }
+  .stage.noticed .notice { opacity: 1; transition: opacity .3s .15s; }
+  .notice > svg { font-size: 20px; color: var(--accent); }
+  .notice div { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 3px; }
+  .notice b { font-size: 14px; font-weight: 600; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .notice small { font-size: 11px; color: #A8A29E; }
+  /* Karaoke: colour runs across the sung line, and the lines scroll up. */
+  @property --sung { syntax: "<percentage>"; inherits: false; initial-value: 0%; }
+  .lyrics { height: 76px; overflow: hidden; }
+  .lyrics > div { display: flex; flex-direction: column; align-items: flex-start; gap: 4px; transition: transform .5s var(--spring); }
+  .lyrics span.now { color: transparent; background: linear-gradient(90deg, var(--panel-text) var(--sung), #57534E var(--sung)); -webkit-background-clip: text; background-clip: text; }
+  .stage.playing .lyrics span.now { animation: sing 1.5s linear forwards; }
+  @keyframes sing { to { --sung: 100%; } }
+  /* World: an analog dial per city, dark at night. */
+  .world { display: flex; flex-direction: column; gap: 10px; }
+  .cities { display: grid; grid-template-columns: repeat(5, 1fr); gap: 8px; }
+  .city { display: flex; flex-direction: column; align-items: center; gap: 2px; padding: 10px 4px; border-radius: 12px; background: #FFFFFF0D; color: var(--panel-text); font-size: 12px; white-space: nowrap; }
+  .city.here { background: #FFFFFF1A; box-shadow: inset 0 0 0 1px #FF4A1C99; }
+  .city b { margin-top: 6px; font-weight: 600; }
+  .city .t { font-size: 13px; font-weight: 500; font-variant-numeric: tabular-nums; }
+  .city .t small { font-size: 9px; font-weight: 600; color: #A8A29E; }
+  .city .rel { font-size: 10px; color: #A8A29E; }
+  .city.here .rel { color: var(--accent); }
+  .city.add { justify-content: center; font-size: 22px; color: #8A8580; background: none; box-shadow: inset 0 0 0 1px #FFFFFF1F; }
+  .dial { position: relative; width: 58px; height: 58px; border-radius: 50%; background: #F5F5F4; }
+  .dial.night { background: #1C1C1E; box-shadow: inset 0 0 0 1px #FFFFFF26; }
+  .dial i { position: absolute; left: 50%; bottom: 50%; border-radius: 2px; background: #111; transform-origin: 50% 100%; transform: translateX(-50%) rotate(var(--a)); }
+  .dial.night i { background: #F5F5F4; }
+  .dial .h { width: 3px; height: 15px; }
+  .dial .m { width: 2px; height: 22px; }
+  .dial .s { width: 1px; height: 23px; background: var(--accent) !important; animation: tick 60s steps(60) infinite; }
+  @keyframes tick { from { transform: translateX(-50%) rotate(0deg); } to { transform: translateX(-50%) rotate(360deg); } }
   /* X and Y ease differently, so the pointer travels on a gentle curve. */
   .cursor { position: absolute; top: 0; left: 0; width: 22px; height: 22px; z-index: 5; pointer-events: none; opacity: 0; will-change: transform; transition: transform 1.1s cubic-bezier(.45, 0, .25, 1), opacity .4s; }
   .cursor > div { width: 100%; height: 100%; will-change: transform; transition: transform 1.1s cubic-bezier(.2, 0, .1, 1); }
@@ -230,6 +267,9 @@
   }
   @media (max-width: 480px) {
     .tab { padding: 7px 8px; }
+    .tab.extra { display: none; }
+    .cities { grid-template-columns: repeat(3, 1fr); }
+    .city:nth-child(n+4) { display: none; }
     .stage { --closed-w: 190px; }
   }
   /* Scroll reveal: things rise into place as they come into view. */
@@ -249,6 +289,8 @@
     .js .hero h1 .line > span { transform: none; animation: none; }
     html { scroll-behavior: auto; }
     .island, .body, .view, .tab, .tab span { transition: none !important; }
+    .dial .s, .lyrics span.now { animation: none !important; }
+    .lyrics span.now { color: var(--panel-text); background: none; }
   }
   .stage.playing .date { display: none; }
 </style>
@@ -270,6 +312,11 @@
   <symbol id="info" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/></symbol>
   <symbol id="search" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></symbol>
   <symbol id="battery" viewBox="0 0 24 24"><rect width="16" height="10" x="2" y="7" rx="2" ry="2"/><line x1="22" x2="22" y1="11" y2="13"/><rect width="9" height="4" x="5" y="10" rx=".5" fill="currentColor" stroke="none"/></symbol>
+  <symbol id="pin" viewBox="0 0 24 24"><path d="M12 17v5"/><path d="M9 10.76a2 2 0 0 1-1.11 1.79l-1.78.9A2 2 0 0 0 5 15.24V16a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-.76a2 2 0 0 0-1.11-1.79l-1.78-.9A2 2 0 0 1 15 10.76V7a1 1 0 0 1 1-1 2 2 0 0 0 0-4H8a2 2 0 0 0 0 4 1 1 0 0 1 1 1z"/></symbol>
+  <symbol id="gauge" viewBox="0 0 24 24"><path d="m12 14 4-4"/><path d="M3.34 19a10 10 0 1 1 17.32 0"/></symbol>
+  <symbol id="globe" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"/><path d="M2 12h20"/></symbol>
+  <symbol id="sparkles" viewBox="0 0 24 24"><path d="M9.937 15.5A2 2 0 0 0 8.5 14.063l-6.135-1.582a.5.5 0 0 1 0-.962L8.5 9.936A2 2 0 0 0 9.937 8.5l1.582-6.135a.5.5 0 0 1 .963 0L14.063 8.5A2 2 0 0 0 15.5 9.937l6.135 1.581a.5.5 0 0 1 0 .964L15.5 14.063a2 2 0 0 0-1.437 1.437l-1.582 6.135a.5.5 0 0 1-.963 0z"/></symbol>
+  <symbol id="check" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="m9 12 2 2 4-4"/></symbol>
   <symbol id="wifi" viewBox="0 0 24 24"><path d="M12 20h.01"/><path d="M2 8.82a15 15 0 0 1 20 0"/><path d="M5 12.859a10 10 0 0 1 14 0"/><path d="M8.5 16.429a5 5 0 0 1 7 0"/></symbol>
 </svg>
 
@@ -298,7 +345,7 @@
       </div>
       <div class="col">
         <span class="label">(02) What's inside</span>
-        <p class="muted">agenda, clipboard, daily notes, drop, music, pomodoro, device stats, world clock, and AI coding tool usage.</p>
+        <p class="muted">Your agenda, clipboard and music, with notes, files, a focus timer, world clocks and AI usage a hover away. More tabs as Covelet grows.</p>
       </div>
       <div class="col cta">
         <span class="label">(03) Get it</span>
@@ -307,6 +354,7 @@
           <button class="info" type="button" aria-label="How to install" aria-describedby="hero-install-tip"><svg class="i"><use href="#info"/></svg></button>
           <span class="tip" id="hero-install-tip" role="tooltip">Drag Covelet to Applications. If macOS says it can't be verified, open System Settings → Privacy &amp; Security → Open Anyway.</span>
         </div>
+        <small class="ver">Version 0.1.5 beta · Updates itself from the notch</small>
       </div>
     </div>
 
@@ -316,15 +364,21 @@
         <div><svg class="i"><use href="#wifi"/></svg><svg class="i search"><use href="#search"/></svg><svg class="i"><use href="#battery"/></svg></div>
       </div>
       <div class="island" aria-label="The Covelet panel">
+      <div class="notice" aria-hidden="true"><svg class="i"><use href="#check"/></svg><div><b>Claude Code finished · site</b><small>Hero copy updated and checked on mobile.</small></div><span class="join">Open</span></div>
       <div class="bar"><span class="date">Sun 1</span><span class="eq" aria-hidden="true"><i></i><i></i><i></i><i></i></span><span>09:41</span></div>
       <div class="body">
         <div class="tabs">
-          <span class="tab on" data-view="today"><svg class="i"><use href="#calendar"/></svg><span>Today</span></span>
-          <span class="tab" data-view="clipboard"><svg class="i"><use href="#clipboard"/></svg><span>Clipboard</span></span>
-          <span class="tab"><svg class="i"><use href="#square-pen"/></svg></span>
-          <span class="tab"><svg class="i"><use href="#inbox"/></svg></span>
           <span class="tab" data-view="music"><svg class="i"><use href="#music"/></svg><span>Music</span></span>
-          <span class="tab"><svg class="i"><use href="#timer"/></svg></span>
+          <span class="tab on" data-view="today"><svg class="i"><use href="#calendar"/></svg><span>Today</span></span>
+          <span class="tab extra"><svg class="i"><use href="#square-pen"/></svg></span>
+          <span class="tab" data-view="clipboard"><svg class="i"><use href="#clipboard"/></svg><span>Clipboard</span></span>
+          <span class="tab extra"><svg class="i"><use href="#inbox"/></svg></span>
+          <span class="tab extra"><svg class="i"><use href="#timer"/></svg></span>
+          <span class="tab extra"><svg class="i"><use href="#gauge"/></svg></span>
+          <span class="tab" data-view="world"><svg class="i"><use href="#globe"/></svg><span>World</span></span>
+          <span class="tab extra"><svg class="i"><use href="#sparkles"/></svg></span>
+          <span class="spacer"></span>
+          <span class="tab pin" aria-label="Pin panel"><svg class="i"><use href="#pin"/></svg></span>
           <span class="tab"><svg class="i"><use href="#settings"/></svg></span>
         </div>
         <div class="views">
@@ -339,8 +393,8 @@
           </div>
           <div class="agenda">
             <h3>Today</h3>
-            <div class="event"><i style="background:#60A5FA"></i><div><b>Standup</b><small>09:30</small></div></div>
-            <div class="event"><i style="background:#FF4A1C"></i><div><b>Design review</b><small>10:00</small></div><span class="join">Join</span></div>
+            <div class="event"><i style="background:#60A5FA"></i><div><b>Standup</b><small>09:30 · Google</small></div></div>
+            <div class="event"><i style="background:#FF4A1C"></i><div><b>Design review</b><small>10:00 · Lark</small></div><span class="join">Join</span></div>
             <div class="event"><i style="background:#34D399"></i><div><b>Lunch with Lisa</b><small>13:00</small></div></div>
             <div class="event"><i style="background:#C084FC"></i><div><b>Client call · Tokyo</b><small>16:30</small></div><span class="join">Join</span></div>
           </div>
@@ -356,11 +410,21 @@
         <div class="view player" data-view="music">
           <div class="art" aria-hidden="true"></div>
           <div class="track">
-            <div><b>Shenandoah</b><br><small>Traditional · American folk song</small></div>
+            <div><b>Shenandoah</b><br><small>Traditional · YouTube in Safari</small></div>
             <div class="progress"><i></i></div>
             <div class="times"><span>1:24</span><span>3:41</span></div>
             <div class="controls"><span>⏮</span><span class="play">❚❚</span><span>⏭</span></div>
-            <div class="lyrics"><span class="now">Oh Shenandoah, I long to see you</span><span>Away, you rolling river</span><span>Oh Shenandoah, I long to see you</span><span>Away, I'm bound away, 'cross the wide Missouri</span></div>
+            <div class="lyrics"><div><span class="now">Oh Shenandoah, I long to see you</span><span>Away, you rolling river</span><span>Oh Shenandoah, I long to see you</span><span>Away, I'm bound away</span><span>'Cross the wide Missouri</span></div></div>
+          </div>
+        </div>
+        <div class="view world" data-view="world">
+          <h3>World</h3>
+          <div class="cities">
+            <div class="city here"><div class="dial"><i class="h" style="--a:290.5deg"></i><i class="m" style="--a:246deg"></i><i class="s"></i></div><b>Jakarta</b><span class="t">09:41 <small>WIB</small></span><span class="rel">Here</span></div>
+            <div class="city"><div class="dial"><i class="h" style="--a:350.5deg"></i><i class="m" style="--a:246deg"></i><i class="s"></i></div><b>Tokyo</b><span class="t">11:41 <small>JST</small></span><span class="rel">+2h</span></div>
+            <div class="city"><div class="dial"><i class="h" style="--a:50.5deg"></i><i class="m" style="--a:246deg"></i><i class="s"></i></div><b>Sydney</b><span class="t">13:41 <small>AEDT</small></span><span class="rel">+4h</span></div>
+            <div class="city"><div class="dial night"><i class="h" style="--a:80.5deg"></i><i class="m" style="--a:246deg"></i><i class="s"></i></div><b>London</b><span class="t">02:41 <small>GMT</small></span><span class="rel">−7h</span></div>
+            <div class="city add"><span>+</span></div>
           </div>
         </div>
         </div>
@@ -374,20 +438,20 @@
     <div class="index-head" data-stagger>
       <div>
         <span class="label">(04) The panel, tab by tab</span>
-        <h2>Nine tabs.<br>One hover.</h2>
+        <h2>Your day.<br>One hover.</h2>
       </div>
-      <p>Optional features are switched on in Settings → Features, so the panel only shows what you use.</p>
+      <p>Pin keeps the panel open while you work. Optional features are switched on in Settings → Features, so the panel only shows what you use.</p>
     </div>
     <div class="table">
-      <div class="row" data-reveal><span class="no">01</span><h3>Today</h3><p>Your agenda for the day, and a Join button for Zoom, Meet or Teams ten minutes before a call.</p><span class="meta">Calendar</span></div>
+      <div class="row" data-reveal><span class="no">01</span><h3>Today</h3><p>Your agenda for the day, with Join on any event that has a Zoom, Meet, Teams or Lark link, and the service each calendar comes from beside the time.</p><span class="meta">Google · Lark · iCloud</span></div>
       <div class="row" data-reveal><span class="no">02</span><h3>Clipboard</h3><p>The last 200 things you copied, opened at the text cursor. Pick one and it's pasted.</p><span class="meta">⇧⌘V for easy clip</span></div>
       <div class="row" data-reveal><span class="no">03</span><h3>Notes</h3><p>A rich-text note per day, stamped with the time you wrote each line.</p><span class="meta">Covelet Notes</span></div>
-      <div class="row" data-reveal><span class="no">04</span><h3>Drop</h3><p>Files and recent screenshots wait in the notch. Send them to a phone or computer on your Wi-Fi.</p><span class="meta">QR · Optional: 3rd Apps</span></div>
-      <div class="row" data-reveal><span class="no">05</span><h3>Music</h3><p>Spotify and Music controls with live lyrics, and a small equalizer in the bar.</p><span class="meta">Spotify · Music</span></div>
+      <div class="row" data-reveal><span class="no">04</span><h3>Drop</h3><p>Files and recent screenshots wait in the notch, in stacks. Pick several and send them by AirDrop, LocalSend or a browser page on your phone.</p><span class="meta">AirDrop · LocalSend · QR</span></div>
+      <div class="row" data-reveal><span class="no">05</span><h3>Music</h3><p>Controls for whatever is playing, from Spotify and Music to YouTube in a browser. Lyrics scroll karaoke style, with a small equalizer in the bar.</p><span class="meta">Spotify · Music · YouTube</span></div>
       <div class="row" data-reveal><span class="no">06</span><h3>Pomodoro</h3><p>A focus timer in the bar: green while you work, amber on a short break, red on a long one.</p><span class="meta">Lives in the bar</span></div>
       <div class="row" data-reveal><span class="no">07</span><h3>Device</h3><p>CPU, memory and battery at a glance, plus Keep awake for long downloads.</p><span class="meta">Keep awake</span></div>
-      <div class="row" data-reveal><span class="no">08</span><h3>World Clock</h3><p>Add the cities your team lives in, see the time there, and convert a time across zones.</p><span class="meta">Time zones</span></div>
-      <div class="row" data-reveal><span class="no">09</span><h3>AI usage</h3><p>Tokens and cost from your coding tools, read from your own logs.</p><span class="meta">Claude Code · Codex · Your favorite provider</span></div>
+      <div class="row" data-reveal><span class="no">08</span><h3>World Clock</h3><p>An analog clock card for each city your team lives in. Step every clock an hour at a time to find a time that suits everyone.</p><span class="meta">Time zones</span></div>
+      <div class="row" data-reveal><span class="no">09</span><h3>AI usage</h3><p>Tokens and cost from your own logs, Claude's live quota if you switch it on, and a notice from the notch when an agent finishes or needs you.</p><span class="meta">Claude Code · Codex · Your favorite provider</span></div>
     </div>
   </section>
 
@@ -396,7 +460,7 @@
       <div class="left" data-stagger>
         <span class="label">(05) What leaves your Mac</span>
         <h2>Nothing leaves your Mac.</h2>
-        <p>No account, no login, no analytics. Covelet reads your calendars and clipboard on this Mac and keeps its history encrypted in your Keychain.</p>
+        <p>No account, no analytics. Your calendars, clipboard and files stay on this Mac, with clipboard history encrypted in your Keychain. Covelet only goes online to look up lyrics, check for updates and, if you switch it on, fetch your Claude quota.</p>
       </div>
       <div class="facts" data-stagger>
         <div class="fact"><svg class="i"><use href="#user-x"/></svg><div><b>No sign-up</b><span>Open it and it works. There's nothing to log in to.</span></div></div>
@@ -417,7 +481,7 @@
             <button class="info" type="button" aria-label="How to install" aria-describedby="install-tip"><svg class="i"><use href="#info"/></svg></button>
             <span class="tip" id="install-tip" role="tooltip">Drag Covelet to Applications. If macOS says it can't be verified, open System Settings → Privacy &amp; Security → Open Anyway.</span>
           </div>
-          <p>Version 0.1.5 beta · 3.4 MB · macOS 26 or later. Free, no account.</p>
+          <p>Version 0.1.5 beta · 3.4 MB · macOS 26 or later. Free, no account. Updates itself from the notch.</p>
         </div>
       </div>
     </div>
@@ -482,8 +546,8 @@
     parallax();
   })();
 
-  // The hero demo: the pointer rests on the notch, the panel drops, two tabs
-  // are opened, the pointer leaves and the panel folds back. Loops while the
+  // The hero demo: an agent notice drops from the notch, the pointer rests on
+  // it, the panel drops, three tabs are opened, the pointer leaves and the panel folds back. Loops while the
   // stage is on screen; with Reduce Motion the panel just stays open on Today.
   (() => {
     const stage = document.getElementById("preview");
@@ -499,6 +563,7 @@
     const tab = name => stage.querySelector(`.tab[data-view="${name}"]`);
     const wait = ms => new Promise(done => setTimeout(done, ms));
     const lines = [...stage.querySelectorAll(".lyrics span")];
+    const roll = stage.querySelector(".lyrics > div");
     let lyricTimer;
 
     function moveTo(x, y) {
@@ -519,14 +584,15 @@
       stage.querySelectorAll(".tab, .view").forEach(el => el.classList.toggle("on", el.dataset.view === name));
       stage.classList.toggle("playing", name === "music");
       clearInterval(lyricTimer);
-      lines.forEach((line, i) => line.classList.toggle("now", i === 0));
-      // The lyrics follow along, one line at a time.
+      const sing = at => {
+        lines.forEach((line, i) => line.classList.toggle("now", i === at));
+        roll.style.transform = `translateY(${-Math.max(0, at - 1) * (lines[1].offsetTop - lines[0].offsetTop)}px)`;
+      };
+      sing(0);
+      // The lyrics follow along karaoke style, one line at a time.
       if (name === "music") {
         let at = 0;
-        lyricTimer = setInterval(() => {
-          at = Math.min(at + 1, lines.length - 1);
-          lines.forEach((line, i) => line.classList.toggle("now", i === at));
-        }, 800);
+        lyricTimer = setInterval(() => sing(at = Math.min(at + 1, lines.length - 1)), 1500);
       }
     }
     async function click() {
@@ -550,14 +616,19 @@
         stage.classList.remove("open");
         jumpTo(stage.clientWidth * .7, stage.clientHeight * .85);
         cursor.classList.add("show");
-        await wait(1000);
-        // 2. The pointer comes up to the notch...
+        await wait(700);
+        // 2. An agent finishes: its notice drops from the notch, then folds away.
+        stage.classList.add("noticed");
+        await wait(2600);
+        stage.classList.remove("noticed");
+        await wait(700);
+        // 3. The pointer comes up to the notch...
         moveOnto(notch);
         await wait(950);
-        // 3. ...and the notch grows into the panel as it arrives.
+        // 4. ...and the notch grows into the panel as it arrives.
         stage.classList.add("open");
         await wait(1400);
-        // 4. Clipboard, then Music.
+        // 5. Clipboard, Music, then World.
         moveOnto(tab("clipboard"));
         await wait(1150);
         await click();
@@ -567,8 +638,13 @@
         await wait(1150);
         await click();
         show("music");
-        await wait(3200);
-        // 5. The pointer leaves and the panel folds back into the notch.
+        await wait(4600);
+        moveOnto(tab("world"));
+        await wait(1150);
+        await click();
+        show("world");
+        await wait(2800);
+        // 6. The pointer leaves and the panel folds back into the notch.
         moveTo(stage.clientWidth * .78, stage.clientHeight * .92);
         await wait(450);
         stage.classList.remove("open");
