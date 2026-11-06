@@ -198,6 +198,12 @@
   .row h3 { font-size: 26px; font-weight: 600; letter-spacing: -.6px; }
   .row p { font-size: 16px; line-height: 1.45; color: var(--ink-2); }
   .row .meta { font-family: var(--mono); font-size: 12px; letter-spacing: .4px; text-align: right; }
+  .more { display: grid; grid-template-columns: 56px 1fr auto; gap: 24px; align-items: center; padding: 40px 0 0; }
+  .more .no { font-family: var(--mono); font-size: 20px; color: var(--accent); }
+  .more h3 { font-size: clamp(30px, 3.4vw, 48px); font-weight: 600; line-height: 1; letter-spacing: -.035em; }
+  .more p { margin-top: 12px; font-size: 17px; line-height: 1.5; color: var(--ink-3); }
+  .more .meta { font-family: var(--mono); font-size: 13px; letter-spacing: .4px; white-space: nowrap; }
+  .more .meta:hover { color: var(--accent); }
 
   /* What leaves */
   .leaves { background: var(--ink); }
@@ -320,6 +326,8 @@
     .row { grid-template-columns: 32px 1fr; gap: 6px 12px; align-items: start; }
     .row .no { padding-top: 8px; }
     .row p, .row .meta { grid-column: 2; text-align: left; }
+    .more { grid-template-columns: 32px 1fr; gap: 12px; align-items: start; }
+    .more .meta { grid-column: 2; }
     .leaves .wrap { flex-direction: column; gap: 48px; padding-top: 80px; padding-bottom: 80px; }
     .leaves .left { width: auto; }
     .leaves .left p { font-size: 17px; }
@@ -517,6 +525,14 @@
       <div class="row" data-reveal><span class="no">09</span><h3>Selfie</h3><p>A quick camera in the notch, with effects and a timer. Photos land in Drop, ready to send.</p><span class="meta">Effects · Timer</span></div>
       <div class="row" data-reveal><span class="no">10</span><h3>AI usage</h3><p>Tokens and cost from your own logs, Claude's live quota if you switch it on, and a notice from the notch when an agent finishes or needs you.</p><span class="meta">Claude Code · Codex · Your favorite provider</span></div>
       <div class="row" data-reveal><span class="no">11</span><h3>The notch itself</h3><p>Volume and brightness levels, charger and headphone cards, and a warning at 20% and 10% battery. On an external display, it follows you with a notch of its own.</p><span class="meta">Always there</span></div>
+    </div>
+    <div class="more" data-reveal>
+      <span class="no">+</span>
+      <div>
+        <h3>The notch is just getting started.</h3>
+        <p>More features are on the way. Each one arrives as an update from the notch, with nothing to reinstall.</p>
+      </div>
+      <a class="meta" href="https://github.com/firdyimas157/covelet-beta/issues/new?template=idea.md">Suggest an idea →</a>
     </div>
   </section>
 
