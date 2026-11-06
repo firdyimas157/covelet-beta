@@ -72,14 +72,14 @@
     position: relative; height: clamp(520px, calc(100svh - 38px - 32px), 1000px); scroll-margin-top: 54px; border-radius: 14px; overflow: hidden;
     background: linear-gradient(180deg, #EFE6DC 0%, #E9CDB8 100%);
   }
-  /* The wallpaper's colour, as four soft blobs that drift on their own slow loops, so the light keeps
+  /* The wallpaper's colour, as four soft blobs that drift on their own loops, so the light keeps
      shifting without a visible repeat. Only transforms move, so it stays cheap beside the demo. */
   .aurora { position: absolute; inset: 0; }
   .aurora i { position: absolute; border-radius: 50%; will-change: transform; animation: drift var(--t) ease-in-out infinite alternate; }
-  .aurora i:nth-child(1) { --t: 19s; --x: 14%; --y: -10%; --s: 1.18; left: -32%; bottom: -62%; width: 100%; height: 150%; background: radial-gradient(closest-side, #FF4A1C, #FF4A1C00); }
-  .aurora i:nth-child(2) { --t: 23s; --x: -12%; --y: -8%; --s: 1.12; right: -38%; bottom: -60%; width: 92%; height: 140%; background: radial-gradient(closest-side, #FF9A6B, #FF9A6B00); animation-delay: -7s; }
-  .aurora i:nth-child(3) { --t: 17s; --x: -16%; --y: 12%; --s: 1.25; left: 22%; top: 30%; width: 66%; height: 96%; background: radial-gradient(closest-side, #FFC9A8, #FFC9A800); animation-delay: -4s; }
-  .aurora i:nth-child(4) { --t: 27s; --x: 10%; --y: 14%; --s: 1.1; right: -12%; top: -46%; width: 100%; height: 100%; background: radial-gradient(closest-side, #F7F1EA, #F7F1EA00); animation-delay: -12s; }
+  .aurora i:nth-child(1) { --t: 12s; --x: 14%; --y: -10%; --s: 1.18; left: -32%; bottom: -62%; width: 100%; height: 150%; background: radial-gradient(closest-side, #FF4A1C, #FF4A1C00); }
+  .aurora i:nth-child(2) { --t: 14s; --x: -12%; --y: -8%; --s: 1.12; right: -38%; bottom: -60%; width: 92%; height: 140%; background: radial-gradient(closest-side, #FF9A6B, #FF9A6B00); animation-delay: -4s; }
+  .aurora i:nth-child(3) { --t: 10s; --x: -16%; --y: 12%; --s: 1.25; left: 22%; top: 30%; width: 66%; height: 96%; background: radial-gradient(closest-side, #FFC9A8, #FFC9A800); animation-delay: -2s; }
+  .aurora i:nth-child(4) { --t: 16s; --x: 10%; --y: 14%; --s: 1.1; right: -12%; top: -46%; width: 100%; height: 100%; background: radial-gradient(closest-side, #F7F1EA, #F7F1EA00); animation-delay: -7s; }
   @keyframes drift { to { transform: translate(var(--x), var(--y)) scale(var(--s)); } }
   /* A little film grain keeps the gradient from looking flat. */
   .stage::before { content: ""; position: absolute; inset: 0; z-index: 1; opacity: .22; mix-blend-mode: soft-light; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E"); }
