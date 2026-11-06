@@ -4,12 +4,12 @@
     <title>Covelet</title>
     <item>
       <title>Covelet 0.1.8</title>
-      <pubDate>Fri, 06 Nov 2026 14:27:11 +0000</pubDate>
-      <sparkle:version>9</sparkle:version>
+      <pubDate>Fri, 06 Nov 2026 23:06:21 +0000</pubDate>
+      <sparkle:version>10</sparkle:version>
       <sparkle:shortVersionString>0.1.8</sparkle:shortVersionString>
       <sparkle:minimumSystemVersion>26.0</sparkle:minimumSystemVersion>
       <sparkle:releaseNotesLink>https://github.com/firdyimas157/covelet-beta/releases/tag/v0.1.8</sparkle:releaseNotesLink>
-      <enclosure url="https://github.com/firdyimas157/covelet-beta/releases/download/v0.1.8/Covelet-0.1.8.dmg" sparkle:edSignature="VF7/1U/Tz9ck0yKsbITccAYySkf6vQV+/qAl63IjzP6ApDsMthr19kKQ/ay1AdBauKEOjVjsfnyJxJijspJjAQ==" length="3939858" type="application/octet-stream"/>
+      <enclosure url="https://github.com/firdyimas157/covelet-beta/releases/download/v0.1.8/Covelet-0.1.8.dmg" sparkle:edSignature="lp2wQWycidqUrBZ5qwS16NxVD6lXlcENbo9yKOSbzl7yT/jYgM946c8skG3JCPmhj3y7AID+8SIKCD+65L0eDQ==" length="3925930" type="application/octet-stream"/>
     </item>
   </channel>
 </rss>
