@@ -153,6 +153,8 @@
   .city .t small { font-size: 9px; font-weight: 600; color: #A8A29E; }
   .city .rel { font-size: 10px; color: #A8A29E; }
   .city.here .rel { color: var(--accent); }
+  .city .wx { display: flex; align-items: center; gap: 3px; margin-top: 2px; font-size: 10px; color: #D6D3D1; font-variant-numeric: tabular-nums; }
+  .city .wx svg { font-size: 10px; color: #FBBF24; }
   .city.add { justify-content: center; font-size: 22px; color: #8A8580; background: none; box-shadow: inset 0 0 0 1px #FFFFFF1F; }
   .dial { position: relative; width: 58px; height: 58px; border-radius: 50%; background: #F5F5F4; }
   .dial.night { background: #1C1C1E; box-shadow: inset 0 0 0 1px #FFFFFF26; }
@@ -374,6 +376,10 @@
   <symbol id="globe" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"/><path d="M2 12h20"/></symbol>
   <symbol id="sparkles" viewBox="0 0 24 24"><path d="M9.937 15.5A2 2 0 0 0 8.5 14.063l-6.135-1.582a.5.5 0 0 1 0-.962L8.5 9.936A2 2 0 0 0 9.937 8.5l1.582-6.135a.5.5 0 0 1 .963 0L14.063 8.5A2 2 0 0 0 15.5 9.937l6.135 1.581a.5.5 0 0 1 0 .964L15.5 14.063a2 2 0 0 0-1.437 1.437l-1.582 6.135a.5.5 0 0 1-.963 0z"/></symbol>
   <symbol id="check" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="m9 12 2 2 4-4"/></symbol>
+  <symbol id="camera" viewBox="0 0 24 24"><path d="M14.5 4h-5L7 7H4a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2h-3l-2.5-3z"/><circle cx="12" cy="13" r="3"/></symbol>
+  <symbol id="sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v2"/><path d="M12 20v2"/><path d="m4.93 4.93 1.41 1.41"/><path d="m17.66 17.66 1.41 1.41"/><path d="M2 12h2"/><path d="M20 12h2"/><path d="m6.34 17.66-1.41 1.41"/><path d="m19.07 4.93-1.41 1.41"/></symbol>
+  <symbol id="cloud" viewBox="0 0 24 24"><path d="M17.5 19H9a7 7 0 1 1 6.71-9h1.79a4.5 4.5 0 1 1 0 9Z"/></symbol>
+  <symbol id="moon" viewBox="0 0 24 24"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/></symbol>
   <symbol id="wifi" viewBox="0 0 24 24"><path d="M12 20h.01"/><path d="M2 8.82a15 15 0 0 1 20 0"/><path d="M5 12.859a10 10 0 0 1 14 0"/><path d="M8.5 16.429a5 5 0 0 1 7 0"/></symbol>
 </svg>
 
@@ -402,7 +408,7 @@
       </div>
       <div class="col">
         <span class="label">(02) What's inside</span>
-        <p class="muted">Your agenda, clipboard and music, with notes, files, a focus timer, world clocks and AI usage a hover away. More tabs as Covelet grows.</p>
+        <p class="muted">Your agenda, clipboard and music, with notes, files, a focus timer, world clocks, a selfie camera and AI usage a hover away. More tabs as Covelet grows.</p>
       </div>
       <div class="col cta">
         <span class="label">(03) Get it</span>
@@ -432,6 +438,7 @@
           <span class="tab extra"><svg class="i"><use href="#timer"/></svg></span>
           <span class="tab extra"><svg class="i"><use href="#gauge"/></svg></span>
           <span class="tab" data-view="world"><svg class="i"><use href="#globe"/></svg><span>World</span></span>
+          <span class="tab extra"><svg class="i"><use href="#camera"/></svg></span>
           <span class="tab extra"><svg class="i"><use href="#sparkles"/></svg></span>
           <span class="spacer"></span>
           <span class="tab pin" aria-label="Pin panel"><svg class="i"><use href="#pin"/></svg></span>
@@ -476,10 +483,10 @@
         <div class="view world" data-view="world">
           <h3>World</h3>
           <div class="cities">
-            <div class="city here"><div class="dial"><i class="h" style="--a:290.5deg"></i><i class="m" style="--a:246deg"></i><i class="s"></i></div><b>Jakarta</b><span class="t">09:41 <small>WIB</small></span><span class="rel">Here</span></div>
-            <div class="city"><div class="dial"><i class="h" style="--a:350.5deg"></i><i class="m" style="--a:246deg"></i><i class="s"></i></div><b>Tokyo</b><span class="t">11:41 <small>JST</small></span><span class="rel">+2h</span></div>
-            <div class="city"><div class="dial"><i class="h" style="--a:50.5deg"></i><i class="m" style="--a:246deg"></i><i class="s"></i></div><b>Sydney</b><span class="t">13:41 <small>AEDT</small></span><span class="rel">+4h</span></div>
-            <div class="city"><div class="dial night"><i class="h" style="--a:80.5deg"></i><i class="m" style="--a:246deg"></i><i class="s"></i></div><b>London</b><span class="t">02:41 <small>GMT</small></span><span class="rel">−7h</span></div>
+            <div class="city here"><div class="dial"><i class="h" style="--a:290.5deg"></i><i class="m" style="--a:246deg"></i><i class="s"></i></div><b>Jakarta</b><span class="t">09:41 <small>WIB</small></span><span class="rel">Here</span><span class="wx"><svg class="i"><use href="#sun"/></svg>31°</span></div>
+            <div class="city"><div class="dial"><i class="h" style="--a:350.5deg"></i><i class="m" style="--a:246deg"></i><i class="s"></i></div><b>Tokyo</b><span class="t">11:41 <small>JST</small></span><span class="rel">+2h</span><span class="wx"><svg class="i"><use href="#cloud"/></svg>18°</span></div>
+            <div class="city"><div class="dial"><i class="h" style="--a:50.5deg"></i><i class="m" style="--a:246deg"></i><i class="s"></i></div><b>Sydney</b><span class="t">13:41 <small>AEDT</small></span><span class="rel">+4h</span><span class="wx"><svg class="i"><use href="#sun"/></svg>24°</span></div>
+            <div class="city"><div class="dial night"><i class="h" style="--a:80.5deg"></i><i class="m" style="--a:246deg"></i><i class="s"></i></div><b>London</b><span class="t">02:41 <small>GMT</small></span><span class="rel">−7h</span><span class="wx"><svg class="i"><use href="#moon"/></svg>9°</span></div>
             <div class="city add"><span>+</span></div>
           </div>
         </div>
@@ -499,15 +506,17 @@
       <p>Pin keeps the panel open while you work. Optional features are switched on in Settings → Features, so the panel only shows what you use.</p>
     </div>
     <div class="table">
-      <div class="row" data-reveal><span class="no">01</span><h3>Today</h3><p>Your agenda for the day, with Join on any event that has a Zoom, Meet, Teams or Lark link, and the service each calendar comes from beside the time.</p><span class="meta">Google · Lark · iCloud</span></div>
+      <div class="row" data-reveal><span class="no">01</span><h3>Today</h3><p>Your agenda for the day, with Join on any Zoom, Meet, Teams or Lark call and a reminder 5, 10 or 15 minutes before. Press + to add an event hour by hour, saved to Google, Lark or iCloud.</p><span class="meta">Google · Lark · iCloud</span></div>
       <div class="row" data-reveal><span class="no">02</span><h3>Clipboard</h3><p>The last 200 things you copied, opened at the text cursor. Pick one and it's pasted.</p><span class="meta">⇧⌘V for easy clip</span></div>
       <div class="row" data-reveal><span class="no">03</span><h3>Notes</h3><p>A rich-text note per day, stamped with the time you wrote each line.</p><span class="meta">Covelet Notes</span></div>
-      <div class="row" data-reveal><span class="no">04</span><h3>Drop</h3><p>Files and recent screenshots wait in the notch, in stacks. Pick several and send them by AirDrop, LocalSend or a browser page on your phone.</p><span class="meta">AirDrop · LocalSend · QR</span></div>
+      <div class="row" data-reveal><span class="no">04</span><h3>Drop</h3><p>Files and recent screenshots wait in the notch, in stacks. Pick several and send them by AirDrop, LocalSend or a browser page on your phone, encrypted on the way.</p><span class="meta">AirDrop · LocalSend · QR</span></div>
       <div class="row" data-reveal><span class="no">05</span><h3>Music</h3><p>Controls for whatever is playing, from Spotify and Music to YouTube in a browser. Lyrics scroll karaoke style, with a small equalizer in the bar.</p><span class="meta">Spotify · Music · YouTube</span></div>
       <div class="row" data-reveal><span class="no">06</span><h3>Pomodoro</h3><p>A focus timer in the bar: green while you work, amber on a short break, red on a long one.</p><span class="meta">Lives in the bar</span></div>
-      <div class="row" data-reveal><span class="no">07</span><h3>Device</h3><p>CPU, memory and battery at a glance, plus Keep awake for long downloads.</p><span class="meta">Keep awake</span></div>
-      <div class="row" data-reveal><span class="no">08</span><h3>World Clock</h3><p>An analog clock card for each city your team lives in. Step every clock an hour at a time to find a time that suits everyone.</p><span class="meta">Time zones</span></div>
-      <div class="row" data-reveal><span class="no">09</span><h3>AI usage</h3><p>Tokens and cost from your own logs, Claude's live quota if you switch it on, and a notice from the notch when an agent finishes or needs you.</p><span class="meta">Claude Code · Codex · Your favorite provider</span></div>
+      <div class="row" data-reveal><span class="no">07</span><h3>Device</h3><p>CPU, memory and battery at a glance, a volume for each app and each browser tab, and Keep awake for long downloads.</p><span class="meta">Per-app volume</span></div>
+      <div class="row" data-reveal><span class="no">08</span><h3>World Clock</h3><p>An analog clock card for each city your team lives in, with the weather there. Step every clock an hour at a time to find a time that suits everyone.</p><span class="meta">Time zones · Weather</span></div>
+      <div class="row" data-reveal><span class="no">09</span><h3>Selfie</h3><p>A quick camera in the notch, with effects and a timer. Photos land in Drop, ready to send.</p><span class="meta">Effects · Timer</span></div>
+      <div class="row" data-reveal><span class="no">10</span><h3>AI usage</h3><p>Tokens and cost from your own logs, Claude's live quota if you switch it on, and a notice from the notch when an agent finishes or needs you.</p><span class="meta">Claude Code · Codex · Your favorite provider</span></div>
+      <div class="row" data-reveal><span class="no">11</span><h3>The notch itself</h3><p>Volume and brightness levels, charger and headphone cards, and a warning at 20% and 10% battery. On an external display, it follows you with a notch of its own.</p><span class="meta">Always there</span></div>
     </div>
   </section>
 
@@ -516,12 +525,12 @@
       <div class="left" data-stagger>
         <span class="label">(05) What leaves your Mac</span>
         <h2>Nothing leaves your Mac.</h2>
-        <p>No account, no analytics. Your calendars, clipboard and files stay on this Mac, with clipboard history encrypted in your Keychain. Covelet only goes online to look up lyrics, check for updates and, if you switch it on, fetch your Claude quota.</p>
+        <p>No account, no analytics. Your calendars, clipboard and files stay on this Mac, with clipboard history encrypted in your Keychain. Covelet only goes online to look up lyrics and the weather, check for updates and, if you switch it on, fetch your Claude quota. Each permission is asked the first time you use its feature, never up front.</p>
       </div>
       <div class="facts" data-stagger>
         <div class="fact"><svg class="i"><use href="#user-x"/></svg><div><b>No sign-up</b><span>Open it and it works. There's nothing to log in to.</span></div></div>
         <div class="fact"><svg class="i"><use href="#lock"/></svg><div><b>Encrypted history</b><span>Clipboard history is sealed with a key kept in your Keychain.</span></div></div>
-        <div class="fact"><svg class="i"><use href="#wifi"/></svg><div><b>Your Wi-Fi only</b><span>Files go straight to your own devices. No hassle.</span></div></div>
+        <div class="fact"><svg class="i"><use href="#wifi"/></svg><div><b>Your Wi-Fi only</b><span>Files go straight to your own devices, encrypted on the way.</span></div></div>
       </div>
     </div>
   </section>
