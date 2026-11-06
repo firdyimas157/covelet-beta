@@ -128,6 +128,31 @@
   .eq i:nth-child(3) { animation-delay: -.6s; }
   .eq i:nth-child(4) { animation-delay: -.15s; }
   @keyframes eq { from { transform: scaleY(.25); } to { transform: scaleY(1); } }
+  /* The volume HUD: the notch drops a slim level bar as the keys turn it up. */
+  .stage.hudded .island { width: min(320px, calc(100vw - 64px)); height: 82px; border-radius: 0 0 22px 22px; }
+  .hud { position: absolute; top: 38px; left: 50%; width: min(300px, calc(100vw - 84px)); height: 40px; padding: 0 22px 6px; display: flex; align-items: center; gap: 12px; transform: translateX(-50%); opacity: 0; transition: opacity .2s; color: #fff; }
+  .stage.hudded .hud { opacity: 1; transition: opacity .25s .12s; }
+  .hud > svg { font-size: 16px; flex: none; }
+  .hud .lv { flex: 1; height: 6px; border-radius: 3px; background: #FFFFFF26; overflow: hidden; }
+  .hud .lv i { display: block; height: 100%; width: var(--lv, 40%); border-radius: 3px; background: #fff; transition: width .18s ease-out; }
+  .agenda-head { display: flex; justify-content: space-between; align-items: center; }
+  .add-ev { width: 20px; height: 18px; display: grid; place-items: center; border-radius: 6px; color: #A8A29E; font-size: 15px; font-weight: 500; }
+  /* Device: sound for each app. */
+  .sound { display: flex; flex-direction: column; gap: 6px; }
+  .sound-head { display: flex; align-items: center; gap: 8px; margin-bottom: 4px; }
+  .sound-head .back { font-size: 11px; color: #A8A29E; }
+  .app-row { height: 34px; padding: 0 10px; display: flex; align-items: center; gap: 8px; border-radius: 8px; background: #FFFFFF0F; color: var(--panel-text); font-size: 12px; }
+  .app-ic { width: 18px; height: 18px; flex: none; display: grid; place-items: center; border-radius: 5px; font-style: normal; font-size: 10px; font-weight: 700; color: #fff; }
+  .app-row .nm { width: 96px; flex: none; }
+  .app-row .spk { font-size: 11px; color: #A8A29E; }
+  .app-row .sl { position: relative; flex: 1; height: 4px; border-radius: 2px; background: #FFFFFF26; }
+  .app-row .sl i { position: absolute; left: 0; top: 0; bottom: 0; width: 100%; border-radius: 2px; background: #FF9F0A; transition: width 1s cubic-bezier(.45, 0, .25, 1); }
+  .app-row .sl i::after { content: ""; position: absolute; right: -6px; top: -4px; width: 12px; height: 12px; border-radius: 50%; background: #fff; box-shadow: 0 1px 3px #00000066; }
+  .stage.turned #safari-row .sl i { width: 40%; }
+  .app-row .pc { width: 34px; text-align: right; font-size: 10px; color: #A8A29E; font-variant-numeric: tabular-nums; }
+  .app-row .reset { font-size: 10px; color: #FF9F0A; opacity: 0; transition: opacity .3s; }
+  .app-row .reset.on, .stage.turned #safari-row .reset { opacity: 1; }
+  .app-row .tabs-btn { font-size: 10px; font-weight: 500; color: #A8A29E; white-space: nowrap; }
   /* An agent notice drops from the closed notch. */
   .stage.noticed .island { width: min(400px, calc(100vw - 64px)); height: 112px; border-radius: 0 0 24px 24px; }
   .notice { position: absolute; top: 38px; left: 50%; width: min(400px, calc(100vw - 64px)); height: 74px; padding: 0 20px 6px; display: flex; align-items: center; gap: 12px; transform: translateX(-50%); opacity: 0; transition: opacity .2s; color: var(--panel-text); }
@@ -333,8 +358,11 @@
     .leaves .left p { font-size: 17px; }
   }
   @media (max-width: 480px) {
-    .tab { padding: 7px 8px; }
+    .tab { padding: 7px 6px; }
+    .tabs { gap: 2px; }
     .tab.extra { display: none; }
+    .app-row .tabs-btn, .app-row .reset { display: none; }
+    .app-row .nm { width: 60px; }
     .cities { grid-template-columns: repeat(3, 1fr); }
     .city:nth-child(n+4) { display: none; }
     .stage { --closed-w: 190px; }
@@ -388,6 +416,7 @@
   <symbol id="sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v2"/><path d="M12 20v2"/><path d="m4.93 4.93 1.41 1.41"/><path d="m17.66 17.66 1.41 1.41"/><path d="M2 12h2"/><path d="M20 12h2"/><path d="m6.34 17.66-1.41 1.41"/><path d="m19.07 4.93-1.41 1.41"/></symbol>
   <symbol id="cloud" viewBox="0 0 24 24"><path d="M17.5 19H9a7 7 0 1 1 6.71-9h1.79a4.5 4.5 0 1 1 0 9Z"/></symbol>
   <symbol id="moon" viewBox="0 0 24 24"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/></symbol>
+  <symbol id="volume" viewBox="0 0 24 24"><path d="M11 4.702a.705.705 0 0 0-1.203-.498L6.413 7.587A1.4 1.4 0 0 1 5.416 8H3a1 1 0 0 0-1 1v6a1 1 0 0 0 1 1h2.416a1.4 1.4 0 0 1 .997.413l3.383 3.384A.705.705 0 0 0 11 19.298z"/><path d="M16 9a5 5 0 0 1 0 6"/><path d="M19.364 18.364a9 9 0 0 0 0-12.728"/></symbol>
   <symbol id="wifi" viewBox="0 0 24 24"><path d="M12 20h.01"/><path d="M2 8.82a15 15 0 0 1 20 0"/><path d="M5 12.859a10 10 0 0 1 14 0"/><path d="M8.5 16.429a5 5 0 0 1 7 0"/></symbol>
 </svg>
 
@@ -434,6 +463,7 @@
         <div><svg class="i"><use href="#wifi"/></svg><svg class="i search"><use href="#search"/></svg><svg class="i"><use href="#battery"/></svg></div>
       </div>
       <div class="island" aria-label="The Covelet panel">
+      <div class="hud" aria-hidden="true"><svg class="i"><use href="#volume"/></svg><span class="lv"><i></i></span></div>
       <div class="notice" aria-hidden="true"><svg class="i"><use href="#check"/></svg><div><b>Claude Code finished · site</b><small>Hero copy updated and checked on mobile.</small></div><span class="join">Open</span></div>
       <div class="bar"><span class="date">Sun 1</span><span class="eq" aria-hidden="true"><i></i><i></i><i></i><i></i></span><span>09:41</span></div>
       <div class="body">
@@ -444,7 +474,7 @@
           <span class="tab" data-view="clipboard"><svg class="i"><use href="#clipboard"/></svg><span>Clipboard</span></span>
           <span class="tab extra"><svg class="i"><use href="#inbox"/></svg></span>
           <span class="tab extra"><svg class="i"><use href="#timer"/></svg></span>
-          <span class="tab extra"><svg class="i"><use href="#gauge"/></svg></span>
+          <span class="tab" data-view="device"><svg class="i"><use href="#gauge"/></svg><span>Device</span></span>
           <span class="tab" data-view="world"><svg class="i"><use href="#globe"/></svg><span>World</span></span>
           <span class="tab extra"><svg class="i"><use href="#camera"/></svg></span>
           <span class="tab extra"><svg class="i"><use href="#sparkles"/></svg></span>
@@ -463,7 +493,7 @@
             <div class="week"><span>22</span><span>23</span><span>24</span><span>25</span><span>26</span><span>27</span><span>28</span></div>
           </div>
           <div class="agenda">
-            <h3>Today</h3>
+            <h3 class="agenda-head">Today<span class="add-ev" aria-hidden="true">+</span></h3>
             <div class="event"><i style="background:#60A5FA"></i><div><b>Standup</b><small>09:30 · Google</small></div></div>
             <div class="event"><i style="background:#FF4A1C"></i><div><b>Design review</b><small>10:00 · Lark</small></div><span class="join">Join</span></div>
             <div class="event"><i style="background:#34D399"></i><div><b>Lunch with Lisa</b><small>13:00</small></div></div>
@@ -487,6 +517,12 @@
             <div class="controls"><span>⏮</span><span class="play">❚❚</span><span>⏭</span></div>
             <div class="lyrics"><div><span class="now">Oh Shenandoah, I long to see you</span><span>Away, you rolling river</span><span>Oh Shenandoah, I long to see you</span><span>Away, I'm bound away</span><span>'Cross the wide Missouri</span></div></div>
           </div>
+        </div>
+        <div class="view sound" data-view="device">
+          <div class="sound-head"><span class="back">‹ Device</span><h3>Sound for each app</h3></div>
+          <div class="app-row"><i class="app-ic" style="background:#1DB954">S</i><span class="nm">Spotify</span><svg class="i spk"><use href="#volume"/></svg><span class="sl"><i style="width:100%"></i></span><span class="pc">100%</span></div>
+          <div class="app-row" id="safari-row"><i class="app-ic" style="background:#2F7BF5">S</i><span class="nm">Safari</span><svg class="i spk"><use href="#volume"/></svg><span class="sl"><i></i></span><span class="pc">100%</span><span class="reset">Reset</span><span class="tabs-btn">Tabs ⌄</span></div>
+          <div class="app-row"><i class="app-ic" style="background:#4A8CFF">Z</i><span class="nm">Zoom</span><svg class="i spk"><use href="#volume"/></svg><span class="sl"><i style="width:80%"></i></span><span class="pc">80%</span><span class="reset on">Reset</span></div>
         </div>
         <div class="view world" data-view="world">
           <h3>World</h3>
@@ -689,8 +725,9 @@
     parallax();
   })();
 
-  // The hero demo: an agent notice drops from the notch, the pointer rests on
-  // it, the panel drops, three tabs are opened, the pointer leaves and the panel folds back. Loops while the
+  // The hero demo: the volume keys turn the notch's level up, an agent notice
+  // drops from it, the pointer rests on the notch, the panel drops, four tabs are opened (Device turns one
+  // app down), the pointer leaves and the panel folds back. Loops while the
   // stage is on screen; with Reduce Motion the panel just stays open on Today.
   (() => {
     const stage = document.getElementById("preview");
@@ -707,6 +744,8 @@
     const wait = ms => new Promise(done => setTimeout(done, ms));
     const lines = [...stage.querySelectorAll(".lyrics span")];
     const roll = stage.querySelector(".lyrics > div");
+    const level = stage.querySelector(".hud");
+    const safari = stage.querySelector("#safari-row");
     let lyricTimer;
 
     function moveTo(x, y) {
@@ -756,22 +795,31 @@
       while (visible) {
         // 1. Closed: only the bar beside the notch.
         show("today");
-        stage.classList.remove("open");
+        stage.classList.remove("open", "turned");
+        safari.querySelector(".pc").textContent = "100%";
+        level.style.setProperty("--lv", "40%");
         jumpTo(stage.clientWidth * .7, stage.clientHeight * .85);
         cursor.classList.add("show");
+        await wait(600);
+        // 2. The volume keys: the notch drops its level bar and it rises a step at a time.
+        stage.classList.add("hudded");
+        await wait(450);
+        for (const lv of ["50%", "60%", "70%"]) { level.style.setProperty("--lv", lv); await wait(260); }
         await wait(700);
-        // 2. An agent finishes: its notice drops from the notch, then folds away.
+        stage.classList.remove("hudded");
+        await wait(650);
+        // 3. An agent finishes: its notice drops from the notch, then folds away.
         stage.classList.add("noticed");
         await wait(2600);
         stage.classList.remove("noticed");
         await wait(700);
-        // 3. The pointer comes up to the notch...
+        // 4. The pointer comes up to the notch...
         moveOnto(notch);
         await wait(950);
-        // 4. ...and the notch grows into the panel as it arrives.
+        // 5. ...and the notch grows into the panel as it arrives.
         stage.classList.add("open");
         await wait(1400);
-        // 5. Clipboard, Music, then World.
+        // 6. Clipboard, Music, Device (one app turned down), then World.
         moveOnto(tab("clipboard"));
         await wait(1150);
         await click();
@@ -782,12 +830,25 @@
         await click();
         show("music");
         await wait(4600);
+        moveOnto(tab("device"));
+        await wait(1150);
+        await click();
+        show("device");
+        await wait(900);
+        // Safari is too loud: drag its slider down to 40%.
+        const track = safari.querySelector(".sl").getBoundingClientRect(), base = stage.getBoundingClientRect();
+        moveTo(track.right - base.left, track.top - base.top + 2);
+        await wait(1150);
+        stage.classList.add("turned");
+        moveTo(track.left - base.left + track.width * .4, track.top - base.top + 2);
+        for (const pc of ["80%", "60%", "40%"]) { await wait(330); safari.querySelector(".pc").textContent = pc; }
+        await wait(1300);
         moveOnto(tab("world"));
         await wait(1150);
         await click();
         show("world");
         await wait(2800);
-        // 6. The pointer leaves and the panel folds back into the notch.
+        // 7. The pointer leaves and the panel folds back into the notch.
         moveTo(stage.clientWidth * .78, stage.clientHeight * .92);
         await wait(450);
         stage.classList.remove("open");
