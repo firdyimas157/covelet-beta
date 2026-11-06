@@ -68,17 +68,22 @@
     --spring: cubic-bezier(.32, .72, 0, 1);
     --closed-w: 272px;
     --open-w: min(720px, calc(100vw - 64px));
-    position: relative; height: 430px; border-radius: 14px 14px 0 0; overflow: hidden;
-    background:
-      radial-gradient(70% 90% at 8% 105%, #FF4A1C 0%, #FF4A1C00 60%),
-      radial-gradient(60% 80% at 100% 100%, #FF9A6B 0%, #FF9A6B00 62%),
-      radial-gradient(55% 70% at 55% 75%, #FFC9A8 0%, #FFC9A800 70%),
-      radial-gradient(80% 60% at 75% 0%, #F7F1EA 0%, #F7F1EA00 70%),
-      linear-gradient(180deg, #EFE6DC 0%, #E9CDB8 100%);
+    /* One full screen: from just under the menu bar to just above the window's bottom edge. */
+    position: relative; height: clamp(520px, calc(100svh - 38px - 32px), 1000px); scroll-margin-top: 54px; border-radius: 14px; overflow: hidden;
+    background: linear-gradient(180deg, #EFE6DC 0%, #E9CDB8 100%);
   }
+  /* The wallpaper's colour, as four soft blobs that drift on their own slow loops, so the light keeps
+     shifting without a visible repeat. Only transforms move, so it stays cheap beside the demo. */
+  .aurora { position: absolute; inset: 0; }
+  .aurora i { position: absolute; border-radius: 50%; will-change: transform; animation: drift var(--t) ease-in-out infinite alternate; }
+  .aurora i:nth-child(1) { --t: 19s; --x: 14%; --y: -10%; --s: 1.18; left: -32%; bottom: -62%; width: 100%; height: 150%; background: radial-gradient(closest-side, #FF4A1C, #FF4A1C00); }
+  .aurora i:nth-child(2) { --t: 23s; --x: -12%; --y: -8%; --s: 1.12; right: -38%; bottom: -60%; width: 92%; height: 140%; background: radial-gradient(closest-side, #FF9A6B, #FF9A6B00); animation-delay: -7s; }
+  .aurora i:nth-child(3) { --t: 17s; --x: -16%; --y: 12%; --s: 1.25; left: 22%; top: 30%; width: 66%; height: 96%; background: radial-gradient(closest-side, #FFC9A8, #FFC9A800); animation-delay: -4s; }
+  .aurora i:nth-child(4) { --t: 27s; --x: 10%; --y: 14%; --s: 1.1; right: -12%; top: -46%; width: 100%; height: 100%; background: radial-gradient(closest-side, #F7F1EA, #F7F1EA00); animation-delay: -12s; }
+  @keyframes drift { to { transform: translate(var(--x), var(--y)) scale(var(--s)); } }
   /* A little film grain keeps the gradient from looking flat. */
-  .stage::before { content: ""; position: absolute; inset: 0; opacity: .22; mix-blend-mode: soft-light; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E"); }
-  .screenbar { position: absolute; inset: 0 0 auto; height: 38px; padding: 0 18px; display: flex; align-items: center; justify-content: space-between; background: #FFFFFF59; backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); font: 500 13px var(--ui); color: #1C1917; }
+  .stage::before { content: ""; position: absolute; inset: 0; z-index: 1; opacity: .22; mix-blend-mode: soft-light; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E"); }
+  .screenbar { position: absolute; inset: 0 0 auto; z-index: 1; height: 38px; padding: 0 18px; display: flex; align-items: center; justify-content: space-between; background: #FFFFFF59; backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); font: 500 13px var(--ui); color: #1C1917; }
   .screenbar div { display: flex; align-items: center; gap: 18px; }
   .screenbar b { font-weight: 700; }
   .screenbar svg { font-size: 15px; }
@@ -142,7 +147,7 @@
   .sound-head { display: flex; align-items: center; gap: 8px; margin-bottom: 4px; }
   .sound-head .back { font-size: 11px; color: #A8A29E; }
   .app-row { height: 34px; padding: 0 10px; display: flex; align-items: center; gap: 8px; border-radius: 8px; background: #FFFFFF0F; color: var(--panel-text); font-size: 12px; }
-  .app-ic { width: 18px; height: 18px; flex: none; display: grid; place-items: center; border-radius: 5px; font-style: normal; font-size: 10px; font-weight: 700; color: #fff; }
+  .app-ic { width: 20px; height: 20px; flex: none; }
   .app-row .nm { width: 96px; flex: none; }
   .app-row .spk { font-size: 11px; color: #A8A29E; }
   .app-row .sl { position: relative; flex: 1; height: 4px; border-radius: 2px; background: #FFFFFF26; }
@@ -384,6 +389,7 @@
     .js .hero h1 .line > span { transform: none; animation: none; }
     html { scroll-behavior: auto; }
     .island, .body, .view, .tab, .tab span { transition: none !important; }
+    .aurora i { animation: none; }
     .dial .s, .lyrics span.now { animation: none !important; }
     .lyrics span.now { color: var(--panel-text); background: none; }
   }
@@ -458,6 +464,7 @@
     </div>
 
     <div class="stage open" id="preview" data-reveal>
+      <div class="aurora" aria-hidden="true"><i></i><i></i><i></i><i></i></div>
       <div class="screenbar" aria-hidden="true">
         <div><svg class="i apple"><use href="#apple"/></svg><b>Finder</b><span>File</span><span>Edit</span><span>View</span><span>Go</span><span>Window</span></div>
         <div><svg class="i"><use href="#wifi"/></svg><svg class="i search"><use href="#search"/></svg><svg class="i"><use href="#battery"/></svg></div>
@@ -520,9 +527,9 @@
         </div>
         <div class="view sound" data-view="device">
           <div class="sound-head"><span class="back">‹ Device</span><h3>Sound for each app</h3></div>
-          <div class="app-row"><i class="app-ic" style="background:#1DB954">S</i><span class="nm">Spotify</span><svg class="i spk"><use href="#volume"/></svg><span class="sl"><i style="width:100%"></i></span><span class="pc">100%</span></div>
-          <div class="app-row" id="safari-row"><i class="app-ic" style="background:#2F7BF5">S</i><span class="nm">Safari</span><svg class="i spk"><use href="#volume"/></svg><span class="sl"><i></i></span><span class="pc">100%</span><span class="reset">Reset</span><span class="tabs-btn">Tabs ⌄</span></div>
-          <div class="app-row"><i class="app-ic" style="background:#4A8CFF">Z</i><span class="nm">Zoom</span><svg class="i spk"><use href="#volume"/></svg><span class="sl"><i style="width:80%"></i></span><span class="pc">80%</span><span class="reset on">Reset</span></div>
+          <div class="app-row"><img class="app-ic" src="apps/spotify.png" alt=""><span class="nm">Spotify</span><svg class="i spk"><use href="#volume"/></svg><span class="sl"><i style="width:100%"></i></span><span class="pc">100%</span></div>
+          <div class="app-row" id="safari-row"><img class="app-ic" src="apps/safari.png" alt=""><span class="nm">Safari</span><svg class="i spk"><use href="#volume"/></svg><span class="sl"><i></i></span><span class="pc">100%</span><span class="reset">Reset</span><span class="tabs-btn">Tabs ⌄</span></div>
+          <div class="app-row"><img class="app-ic" src="apps/zoom.png" alt=""><span class="nm">Zoom</span><svg class="i spk"><use href="#volume"/></svg><span class="sl"><i style="width:80%"></i></span><span class="pc">80%</span><span class="reset on">Reset</span></div>
         </div>
         <div class="view world" data-view="world">
           <h3>World</h3>
